@@ -4,11 +4,13 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@DynamicInsert
 public class Category {
 
     @Id
