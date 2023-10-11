@@ -17,21 +17,26 @@ public class CommentLikeService {
         return dao.findAll();
     }
 
-    public CommentLike show(int code) {
-        return dao.findById(code).orElse(null);
+    public CommentLike show(int id) {
+        return dao.findById(id).orElse(null);
     }
 
-    public CommentLike create(CommentLike commentLike) {
-        return dao.save(commentLike);
+    public CommentLike create(CommentLike vo) {
+        return dao.save(vo);
     }
 
-    public CommentLike update(CommentLike commentLike) {
-        return dao.save(commentLike);
+    public CommentLike update(CommentLike vo) {
+        CommentLike target = dao.findById(vo.getCommLikeCode()).orElse(null);
+        if(target!=null) {
+            return dao.save(vo);
+        }
+        return null;
     }
 
-    public CommentLike delete(int code) {
-        CommentLike data = dao.findById(code).orElse(null);
-        dao.delete(data);
-        return data;
+    public CommentLike delete(int id) {
+        CommentLike target = dao.findById(id).orElse(null);
+        dao.delete(target);
+        return target;
     }
+
 }

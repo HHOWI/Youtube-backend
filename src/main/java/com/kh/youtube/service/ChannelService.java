@@ -13,42 +13,43 @@ import java.util.List;
 public class ChannelService {
 
     @Autowired
-    private ChannelDAO channelDao;
+    private ChannelDAO channelDAO;
 
     @Autowired
     private MemberDAO memberDAO;
 
     public List<Channel> showAll() {
-        return channelDao.findAll();
+        return channelDAO.findAll();
     }
 
     public Channel show(int id) {
-        Channel channel = channelDao.findById(id).orElse(null);
+        Channel channel = channelDAO.findById(id).orElse(null);
         Member member = memberDAO.findById(channel.getMember().getId()).orElse(null);
         channel.setMember(member);
         return channel;
     }
 
     public Channel create(Channel channel) {
-        return channelDao.save(channel);
+        return channelDAO.save(channel);
     }
 
     public Channel update(Channel channel) {
-        Channel target = channelDao.findById(channel.getChannelCode()).orElse(null);
+        Channel target = channelDAO.findById(channel.getChannelCode()).orElse(null);
         if(target!=null) {
-            return channelDao.save(channel);
+            return channelDAO.save(channel);
         }
         return null;
     }
 
-    public Channel delete(int code) {
-        Channel data = channelDao.findById(code).orElse(null);
-        channelDao.delete(data);
-        return data;
+    public Channel delete(int id) {
+        Channel target = channelDAO.findById(id).orElse(null);
+        channelDAO.delete(target);
+        return target;
     }
 
     // 특정 멤버의 모든 채널 조회
     public List<Channel> showMember(String id) {
-        return channelDao.findByMemberId(id);
+        return channelDAO.findByMemberId(id);
     }
+
 }

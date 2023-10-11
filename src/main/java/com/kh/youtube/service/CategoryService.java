@@ -26,6 +26,7 @@ public class CategoryService {
     }
 
     public Category update(Category category) {
+
         return dao.save(category);
     }
 

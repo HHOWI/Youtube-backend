@@ -8,25 +8,27 @@ import org.hibernate.annotations.DynamicInsert;
 
 import java.util.Date;
 
+@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @DynamicInsert
-@Entity
 public class CommentLike {
+
     @Id
-    @Column(name = "comm_like_code")
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "commLikeSequence")
-    @SequenceGenerator(name = "commLikeSequence", sequenceName = "SEQ_COMMENT_LIKE", allocationSize = 1)
+    @Column(name="comm_like_code")
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator="commLikeSequence")
+    @SequenceGenerator(name="commLikeSequence", sequenceName = "SEQ_COMMENT_LIKE", allocationSize = 1)
     private int commLikeCode;
-    @Column(name = "comm_like_date")
+
+    @Column(name="comm_like_date")
     private Date commLikeDate;
 
     @ManyToOne
-    @JoinColumn(name = "comment_code")
+    @JoinColumn(name="comment_code")
     private VideoComment comment;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name="id")
     private Member member;
 }

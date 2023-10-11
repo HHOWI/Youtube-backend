@@ -17,18 +17,22 @@ public class MemberService {
     private MemberDAO dao;
 
     public List<Member> showAll() {
-        return dao.findAll();
+        return dao.findAll(); // SELECT * FROM MEMBER
     }
 
     public Member show(String id) {
-        return dao.findById(id).orElse(null);
+        return dao.findById(id).orElse(null); // SELECT * FROM MEMBER WHERE id=?
     }
 
+    // INSERT INTO MEMBER(ID, PASSWORD, NAME, AUTHORITY)
+    // VALUES(?, ?, ?, 'ROLE_USER')
     public Member create(Member member) {
-        return dao.save(member); // INSERT INTO MEMBER VALUES(? ,?, ?, 'ROLE_USER')
+        log.info("member : " + member);
+        return dao.save(member);
     }
 
-    // UPDATE MEMBER SET ID=?, PASSWORD=?, NAME=?, AUTHORITY=? WHERE ID=?
+    // UPDATE MEMBER SET ID=?, PASSWORD=?, NAME=?, AUTHORITY=?
+    // WHERE ID=?
     public Member update(Member member) {
         Member target = dao.findById(member.getId()).orElse(null);
         if(target!=null) {
@@ -39,7 +43,7 @@ public class MemberService {
 
     // DELETE FROM MEMBER WHERE ID=?
     public Member delete(String id) {
-        Member target = show(id);
+        Member target = dao.findById(id).orElse(null);
         dao.delete(target);
         return target;
     }
@@ -51,4 +55,5 @@ public class MemberService {
         }
         return null;
     }
+
 }
